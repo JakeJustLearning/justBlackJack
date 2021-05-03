@@ -1,0 +1,74 @@
+div#game-contain {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+div#game-screen {
+    height: 600px;
+    width: 600px;
+    align-self: center;
+    background-color: rgb(0, 112, 69);
+    border-style: solid;
+    border-radius: 5px;
+    border-color: black;
+    border-width: 10px;
+}
+
+div#play-area {
+    margin: 3px;
+    padding: 10px;
+    height: 500px;
+}
+
+.button {
+    padding: 5px 40px;
+    background-color: grey;
+    font-size: 16px;
+    text-align: center;
+    display: inline-block;
+    border: 2px solid black;
+    border-radius: 5px
+}
+
+.button:hover:enabled {
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19)
+}
+
+.hand {
+    display: flex;
+    flex-direction: row;
+    padding: 3px;
+    margin: 3px;
+    border: 3px solid black;
+    border-radius: 5px;
+    height: 75px;
+    align-items: center;
+    justify-content: center;
+}
+
+.deck-area {
+    display: flex;
+    height: 250px;
+    margin-left: 100px;
+    margin-right: 100px;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+}
+
+.card {
+    margin: 3px;
+    height: 60px;
+    width: auto;
+}
+
+#score-area {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 7;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+}
