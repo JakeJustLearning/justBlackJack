@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Just Black Jack: A Game!</title>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="app.js"></script>
+
+
+</head>
+
+<body>
+    <div id="game-contain">
+        <h1>Just Black Jack</h1>
+        <p>a game by a pickle</p>
+        <div id="game-screen">
+            <div id="play-area">
+                <div class="dealer">
+                    <div class="hand dealer" id="dealer-hand">
+
+                    </div>
+                </div>
+                <div class="deck-area">
+                    <div>
+                        <img class="card" src="assets/cards/1X/cardBack(1x).png">
+                    </div>
+                    <div id="score-area">
+                        <div id="dealer-score" class="dealer score">
+
+                        </div>
+                        <div id="results">
+
+                        </div>
+                        <div id="player-score" class="player score">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="player">
+                    <div class="hand player" id="player-hand">
+
+                    </div>
+                    <div class="play-buttons">
+                        <button class="button" id="hit">
+                            <p>HIT</p>
+                        </button>
+                        <button class="button" id="stand">
+                            <p>STAND</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <button class="button" id="new-game">
+                <p>NEW GAME</p>
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>
