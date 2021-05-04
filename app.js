@@ -54,6 +54,7 @@ class Deck {
 class Hand {
     constructor(deck, size) {
         this.cards = []
+        this.wDraw = true
 
         this.draw(deck, size)
     }
@@ -69,6 +70,16 @@ class Hand {
         return this.cards
     }
 
+    setCards(suits, ranks) {
+        this.cards = []
+        console.log(this.getCards())
+        for (let x in suits) {
+            for (let i in ranks) {
+                this.cards.push(new Card(suits[x], ranks[i]))
+            }
+        }
+    }
+
     handValue() {
         let val = 0
         for (let i in this.cards) {
@@ -82,14 +93,50 @@ class Hand {
         }
         return val
     }
+    shouldDraw(hand) {
+        (this.handValue() > 17) ? this.wDraw = false: this.wDraw = true
+    }
+
+    dealerLogic() {
+        if (this.handValue() <= 17) {
+            console.log('x')
+            if (this.handValue() == 17) {
+                console.log('y')
+                if ((this.getCards().filter(e => e.rank != 1)).reduce((a, c) => { return a + c.rank }, 0) == 6) {
+                    this.draw(bjDeck, 1)
+                    console.log - ('s17')
+                } else {
+                    console.log('17')
+                }
+            } else {
+                console.log('dealer draws')
+                this.draw(bjDeck, 1)
+                console.log('i have drawn')
+                console.log('i have scores')
+                console.log('i have cards')
+            }
+        }
+    }
 }
+
+class Game {
+    constructor(type, players) {
+        this.type = type
+        this.players = players
+    }
+}
+
+class BlackJack {}
+
 
 
 let bjDeck = {}
 let playerHand = {}
 let dealerHand = {}
+let dealerMove = false;
 
 function startBlackJack() {
+    dealerMove = false
     bjDeck = new Deck(deckRefStandard)
 
     bjDeck.fyShuf()
@@ -103,10 +150,13 @@ function startBlackJack() {
 }
 
 
+
+
 //JSQUIRTY
 $(document).ready(function() {
     $("#new-game").click(function() {
         $(".hand").empty()
+        $("#results").empty()
         startBlackJack();
         bjDeck.fyShuf();
         bjDeck.fyShuf();
@@ -135,6 +185,7 @@ $(document).ready(function() {
         playerHand.draw(bjDeck, 1)
         renderCards()
         renderScores()
+
         checkScores(playerHand, dealerHand)
     })
 
@@ -142,22 +193,51 @@ $(document).ready(function() {
         $("#hit").attr("disabled", true);
         $("#stand").attr("disabled", true)
         dealerLogic(dealerHand);
-        checkScores
+        checkScores(playerHand, dealerHand)
     })
 
+
+
+    function checkScores(p, d) {
+        console.log('checking scores')
+        $("#results").empty()
+        if (p.handValue() > 21) {
+            $("#results").append('<p style="font-size:larger">u bust bitch</p>')
+            $("#hit").attr("disabled", true)
+            $("#stand").attr("disabled", true)
+        } else if (p.handValue() == 21 && dealerMove == false) {
+            $("#results").append('<p style="font-size:larger">Black Jack...for now! STAND and let the dealer try</p>')
+            $("#hit").attr("disabled", true)
+        } else if (d.handValue() > 21) {
+            $("#results").append('<p style="font-size:larger">dealer is a busty ass ho</p>')
+            $("#hit").attr("disabled", true)
+            $("#stand").attr("disabled", true)
+        } else if ((d.handValue() == p.handValue()) && dealerMove == true) {
+            $("#results").append('<p style="font-size:larger">There are no winners when tieing, consider this a loss</p>')
+            $("#hit").attr("disabled", true)
+            $("#stand").attr("disabled", true)
+        } else if ((p.handValue() > d.handValue()) && dealerMove == true) {
+            $("#results").append('<p style="font-size:larger">you have done it you beautiful bitch</p>')
+            $("#hit").attr("disabled", true)
+            $("#stand").attr("disabled", true)
+        } else if ((d.handValue() > p.handValue()) && dealerMove == true) {
+            $("#results").append('<p style="font-size:larger">dealer wins, your shoes are ugly</p>')
+            $("#hit").attr("disabled", true)
+            $("#stand").attr("disabled", true)
+        }
+    }
+
     function dealerLogic(d) {
+        dealerMove = true
         console.log('running')
         while (d.handValue() <= 17) {
             console.log('x')
             if (d.handValue() == 17) {
                 console.log('y')
-                if ((d.getCards().filter(e => e.rank == 1)).reduce(function(prev, cur) {
-                        console.log('z')
-                        return prev + (cur.rank)
-                    }) == 6) {
+                if ((d.getCards().filter(e => e.rank != 1)).reduce((a, c) => { return a + c.rank }, 0) == 6) {
                     d.draw(bjDeck, 1)
-                    renderScores()
                     renderCards()
+                    renderScores()
                     console.log - ('s17')
                 } else {
                     console.log('17')
@@ -175,21 +255,6 @@ $(document).ready(function() {
             }
         }
         checkScores(playerHand, dealerHand)
-    }
-
-    function checkScores(p, d) {
-        if (p.handValue() > 21) {
-            alert('u bust bitch')
-            $("#hit").attr("disabled", true)
-        } else if (d.handValue() > 21) {
-            alert('dealer is a busty ass ho')
-        } else if (d.handValue() == p.handValue()) {
-            alert('There are no winners when tieing, consider this a loss')
-        } else if (p.handValue() > d.handValue()) {
-            alert('you have done it you beautiful bitch')
-        } else {
-            alert('dealer wins, your shoes are ugly')
-        }
     }
 
 
