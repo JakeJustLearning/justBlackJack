@@ -152,8 +152,14 @@ function startBlackJack() {
 
 
 
-//JSQUIRTY
+//JQ
 $(document).ready(function() {
+    $('#hit').attr("disabled", true)
+    $('#stand').attr("disabled", true)
+
+    $('body').fadeIn(2000, function() {
+
+    });
     $("#new-game").click(function() {
         $(".hand").empty()
         $("#results").empty()
@@ -163,6 +169,7 @@ $(document).ready(function() {
         renderCards()
         renderScores()
         $(".button").attr("disabled", false)
+        checkScores(playerHand, dealerHand)
     })
 
     function renderCards() {
@@ -202,26 +209,26 @@ $(document).ready(function() {
         console.log('checking scores')
         $("#results").empty()
         if (p.handValue() > 21) {
-            $("#results").append('<p style="font-size:larger">u bust bitch</p>')
+            $("#results").append('<p style="font-size:larger">YOU BUST!</p>')
             $("#hit").attr("disabled", true)
             $("#stand").attr("disabled", true)
         } else if (p.handValue() == 21 && dealerMove == false) {
-            $("#results").append('<p style="font-size:larger">Black Jack...for now! STAND and let the dealer try</p>')
+            $("#results").append('<p style="font-size:larger">BLACK JACK... For now</p>')
             $("#hit").attr("disabled", true)
         } else if (d.handValue() > 21) {
-            $("#results").append('<p style="font-size:larger">dealer is a busty ass ho</p>')
+            $("#results").append('<p style="font-size:larger">DEALER BUSTS! YOU WIN</p>')
             $("#hit").attr("disabled", true)
             $("#stand").attr("disabled", true)
         } else if ((d.handValue() == p.handValue()) && dealerMove == true) {
-            $("#results").append('<p style="font-size:larger">There are no winners when tieing, consider this a loss</p>')
+            $("#results").append('<p style="font-size:larger">THERE ARE NO WINNERS IN A TIE!</p>')
             $("#hit").attr("disabled", true)
             $("#stand").attr("disabled", true)
         } else if ((p.handValue() > d.handValue()) && dealerMove == true) {
-            $("#results").append('<p style="font-size:larger">you have done it you beautiful bitch</p>')
+            $("#results").append('<p style="font-size:larger">YOU WIN!</p>')
             $("#hit").attr("disabled", true)
             $("#stand").attr("disabled", true)
         } else if ((d.handValue() > p.handValue()) && dealerMove == true) {
-            $("#results").append('<p style="font-size:larger">dealer wins, your shoes are ugly</p>')
+            $("#results").append('<p style="font-size:larger">DEALER WINS</p>')
             $("#hit").attr("disabled", true)
             $("#stand").attr("disabled", true)
         }
@@ -256,8 +263,4 @@ $(document).ready(function() {
         }
         checkScores(playerHand, dealerHand)
     }
-
-
-
-
 })
